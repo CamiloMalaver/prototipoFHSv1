@@ -9,4 +9,11 @@ class FuncionSustantiva extends Model
 {
     use HasFactory;
     protected $table = 'funcion_sustantiva';
+
+    public function tipofuncion()
+    {
+        return $this->hasOne(TipoFuncion::class, 'id', 'tipo_funcion_id');
+    }
+
+
 }

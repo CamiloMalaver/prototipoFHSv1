@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('fecha');
             $table->time('hora_inicio');
             $table->time('hora_final');
-            $table->json('involucrados');
+            $table->string('involucrados', 100)->nullable();
             $table->string('descripcion_actividad', 1000);
             $table->string('observaciones', 500);
             $table->string('observaciones_auditor', 500)->nullable();

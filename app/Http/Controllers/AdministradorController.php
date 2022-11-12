@@ -30,13 +30,13 @@ class AdministradorController extends Controller
 
     public function nuevoUsuario(Request $request){
         $validated = $request->validate([
-            'documento' => 'required|max:15|min:6|unique:users',
-            'nombres' => 'required|max:50|min:3',
-            'apellidos' => 'required|max:50|min:3',
-            'celular' => 'required|max:10|min:10',
+            'documento' => 'required|integer|max:15|min:6|unique:users',
+            'nombres' => 'required|string|max:50|min:3',
+            'apellidos' => 'required|string|max:50|min:3',
+            'celular' => 'required|integer|max:10|min:10',
             'select_rol' => 'required',
             'select_programa' => 'nullable',
-            'email' => 'required|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required|confirmed|min:8',
         ]);
 

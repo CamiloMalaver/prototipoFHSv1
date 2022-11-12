@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdministradorController;
+use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,6 @@ Route::get('administrador/detallesEspacioTrabajo', [AdministradorController::cla
 Route::post('administrador/nuevogrupotrabajo', [AdministradorController::class, 'nuevoGrupoTrabajo'])->name('adminNuevoGT');
 Route::post('administrador/agregardocentegt', [AdministradorController::class, 'agregarDocenteEspacioTrabajo'])->name('adminAddDocGT');
 
-Route::get('administrador', [AdministradorController::class, 'index'])->name('adminDash');
+Route::get('docente', [DocenteController::class, 'index'])->name('docenteDash');
+Route::post('docente/nuevoreporte', [DocenteController::class, 'nuevoReporte'])->name('docenteNuevoReporte');
 

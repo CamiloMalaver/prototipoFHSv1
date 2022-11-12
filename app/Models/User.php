@@ -63,4 +63,9 @@ class User extends Authenticatable
         return $this->belongsToMany(EspacioTrabajo::class, 'persona_espacio_trabajo', 'id', 'espacio_trabajo_id');
     }
     
+    public function funcionsustantiva()
+    {
+        return $this->hasMany(FuncionSustantiva::class, 'usuario_id', 'id');
+    }
+
 }

@@ -36,6 +36,9 @@
                         <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Grupos de trabajo</span></a>
                 </li>
                 @endif
+                <!--Docente Links-->
+                @if(auth()->user()->rol->nombre_rol == 'Docente')
+                @endif
                 <li>
                     <form method="POST" action="/salir" id="formNuevoUsuario">
                         @csrf
