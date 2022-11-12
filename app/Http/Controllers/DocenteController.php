@@ -21,7 +21,7 @@ class DocenteController extends Controller
     public function Index(){
         $tieneEspacioTrabajo = PersonaEspacioTrabajo::where('usuario_id', Auth::user()->id)->first();
         $tiposfuncion = TipoFuncion::All();
-        $reportes = FuncionSustantiva::where('usuario_id', Auth::user()->id)->get();
+        $reportes = FuncionSustantiva::where('usuario_id', Auth::user()->id)->with('estado')->get();
         return view('docente.docenteDash')->with(compact('tieneEspacioTrabajo', 'tiposfuncion', 'reportes'));
     }
 
@@ -32,13 +32,16 @@ class DocenteController extends Controller
             'tipo_funcion' => 'required|exists:tipo_funcion,id',
             'hora_inicio' => 'required|date_format:H:i',
             'hora_final' => 'required|date_format:H:i|after:hora_inicio',
-            'fecha_reporte' => 'required',
+            'fecha_reporte' => 'required|before:tomorrow',
             'involucrado_1' => 'nullable|min:5|max:100',
             'involucrado_2' => 'nullable|min:5|max:100',
             'involucrado_3' => 'nullable|min:5|max:100',
             'descripcion_actividad' => 'required|string|min:10|max:1000',
             'observaciones' => 'required|min:8|max:500',
+        ], [
+            'fecha_reporte.before' => 'Campo fecha superior a el dia de hoy.',
         ]);
+
         $reporte = new FuncionSustantiva();
 
         $reporte->usuario_id = Auth::user()->id;
@@ -50,8 +53,8 @@ class DocenteController extends Controller
        
         $reporte->involucrados = '{
             "involucrado_1": "' . $request->involucrado_1 . '",
-            "involucrado_2": "' . $request->involucrado_1 . '",
-            "involucrado_3": "' . $request->involucrado_1 . '"
+            "involucrado_2": "' . $request->involucrado_2 . '",
+            "involucrado_3": "' . $request->involucrado_3 . '"
          }';
 
         $reporte->descripcion_actividad = $request->descripcion_actividad;
@@ -62,6 +65,11 @@ class DocenteController extends Controller
 
         return redirect()->back()->with('message', 'Se ha agregado el reporte correctamente.');
 
+    }
+
+    public function detallesFuncionSustantiva(Request $request){
+        $result = FuncionSustantiva::where('id', $request->id)->with('tipofuncion')->first();
+        return $result;
     }
 
 

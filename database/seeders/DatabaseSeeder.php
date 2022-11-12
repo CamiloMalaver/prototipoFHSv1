@@ -31,16 +31,32 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('estado')->insert([
-            'valor' => 1,
+            'nombre' => 'Aprobado',
         ]);
 
         DB::table('estado')->insert([
-            'valor' => 0,
+            'nombre' => 'En revision',
+        ]);
+
+        DB::table('estado')->insert([
+            'nombre' => 'Rechazado',
         ]);
 
         DB::table('programa')->insert([
             'codigo' => 5005,
             'nombre' => 'Default',
+        ]);
+
+        DB::table('tipo_funcion')->insert([
+            'nombre' => 'Investigaciones',
+        ]);
+
+        DB::table('tipo_funcion')->insert([
+            'nombre' => 'Asesorias',
+        ]);
+
+        DB::table('tipo_funcion')->insert([
+            'nombre' => 'Proyecto de grado I',
         ]);
 
         DB::table('users')->insert([
@@ -178,7 +194,7 @@ class DatabaseSeeder extends Seeder
             'celular' => 312588784,
             'rol_id' => 3,
             'programa_id' => 1,
-            'email' => 'r4grfeedsgn@admin.io',
+            'email' => 'vdiaz@admin.io',
             'password' => Hash::make('secret'),
             'estado_id' => 1,
         ]);

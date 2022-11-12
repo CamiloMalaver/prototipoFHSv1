@@ -21,4 +21,4 @@ Route::post('administrador/agregardocentegt', [AdministradorController::class, '
 
 Route::get('docente', [DocenteController::class, 'index'])->name('docenteDash');
 Route::post('docente/nuevoreporte', [DocenteController::class, 'nuevoReporte'])->name('docenteNuevoReporte');
-
+Route::get('docente/detallefs', [DocenteController::class, 'detallesFuncionSustantiva'])->name('docenteDetalleFS');

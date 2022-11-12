@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('estado', function (Blueprint $table){
             $table->id();
-            $table->tinyInteger('valor');
+            $table->string('nombre');
         });
     }
 

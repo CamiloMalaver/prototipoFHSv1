@@ -42,7 +42,7 @@
             <div class="card shadow-sm" style="width: 20rem;">
                 <div class="row align-items-center justify-content-between m-3">
                     <div class="col-7">
-                        <h4 class="card-title mb-0 justify-content-center">{{$espacio->nombre}}</h4>
+                        <h4 class="card-title mb-0 justify-content-center fs-4 fw-normal">{{$espacio->nombre}}</h4>
                     </div>
                     <div class="col-5 align-items-center"><a onclick="edit('{{$espacio}}')" class="btn btn-xs btn-primary">Gestionar</a></div>
                 </div>

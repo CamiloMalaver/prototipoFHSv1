@@ -66,8 +66,12 @@
                     <tr>
                         <td>{{ $reporte->consecutivo}}</td>
                         <td>{{ $reporte->tipofuncion()->first()->nombre}}</td>
-                        <td>{{ $reporte->estado_id}}</td>
-                        <td><button class="btn m-0" onclick="edit('')" data-toggle="tooltip" data-placement="top" title="Editar usuario."><img src="https://cdn-icons-png.flaticon.com/512/143/143437.png" style="width: 25px;" alt=""></button></td>
+                        <td>{{ $reporte->estado()->first()->nombre}}</td>
+                        <td>
+                            <button class="btn m-0" onclick='view("{{$reporte->id}}")'>
+                                <i class="bi bi-eye fs-4" style="color: #0d6efd" data-toggle="tooltip" data-placement="top" title="Revisar"></i>
+                            </button>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -120,7 +124,7 @@
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-floating mb-3">
                                     <input type="time" class="form-control" name="hora_inicio" placeholder="Hora inicio" required>
-                                    <label for="floatingInput">Hora incio</label>
+                                    <label for="floatingInput">Hora inicio</label>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-4">
@@ -191,6 +195,126 @@
         </div>
     </div>
 </div>
-<script type="text-javascript">
+
+<!-- Modal Revisar Reporte-->
+<div class="modal fade" id="modalGetDetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="exampleModalLabel">REPORTE DE FUNCIÓN</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container fluid">
+                    <div class="row d-flex justify-content-around">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="consecutivoV" placeholder="Consecutivo" minlength="3" maxlength="30" readonly>
+                                <label for="floatingInput">Consecutivo</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-floating mb-3" id="">
+                                <input type="text" class="form-control" id="tipoFuncionV" placeholder="Tipo función" minlength="3" maxlength="30" readonly>
+                                <label for="floatingSelectGrid">Tipo de función</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around">
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="time" class="form-control" id="horaInicioV" placeholder="Hora inicio" readonly>
+                                <label for="floatingInput">Hora inicio</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="time" class="form-control" id="horaFinalV" placeholder="Hora final" readonly>
+                                <label for="floatingInput">Hora final</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-floating mb-3">
+                                <input type="date" class="form-control" id="fechaReporteV" placeholder="Fecha reporte" readonly>
+                                <label for="floatingPassword">Fecha reporte</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="input-group mb-3">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="involucrado1V" maxlength="50" minlength="5" placeholder="Involucrado 1" readonly>
+                                    <label for="floatingInputI1">Involucrado 1</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="involucrado2V" maxlength="50" minlength="5" placeholder="Involucrado 2" readonly>
+                                    <label for="floatingInputI1">Involucrado 2</label>
+                                </div>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="involucrado3V" maxlength="50" minlength="5" placeholder="Involucrado 3" readonly>
+                                    <label for="floatingInputI1">Involucrado 3</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="descripcionActividadV" placeholder="Descripción actividad" id="" style="height: 160px" maxlength="1000" minlength="10" readonly></textarea>
+                                <label for="floatingTextarea2">Descripción actividad</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="observacionesV" placeholder="Observaciones" minlength="10" maxlength="500" style="height: 100px" readonly></textarea>
+                                <label for="floatingTextarea2">Observaciones</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-around">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="mb-3">
+                                <label for="formFileMultiple" name="anexos" class="form-label">Anexo de evidencias</label>
+                                <input class="form-control" type="file" id="formFile">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function view(identificador) {
+        $.ajax({
+            url: "{{route('docenteDetalleFS')}}",
+            method: "GET",
+            data: {
+                id: identificador,
+            },
+            success: function(data) {
+                let este = JSON.parse(data.involucrados);
+                $('#consecutivoV').val(data.consecutivo);
+                $('#tipoFuncionV').val(data.tipofuncion.nombre);
+                $('#horaInicioV').val(data.hora_inicio);
+                $('#horaFinalV').val(data.hora_final);
+                $('#fechaReporteV').val(data.fecha);     
+                $('#involucrado1V').val(este.involucrado_1);
+                $('#involucrado2V').val(este.involucrado_2);
+                $('#involucrado3V').val(este.involucrado_3);
+                $('#descripcionActividadV').val(data.descripcion_actividad);
+                $('#observacionesV').val(data.observaciones);
+                $("#modalGetDetails").modal('show');
+            }
+        });
+    }
 </script>
 @endsection

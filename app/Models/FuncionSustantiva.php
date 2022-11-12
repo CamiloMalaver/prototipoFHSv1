@@ -15,5 +15,9 @@ class FuncionSustantiva extends Model
         return $this->hasOne(TipoFuncion::class, 'id', 'tipo_funcion_id');
     }
 
+    public function estado()
+    {
+        return $this->hasOne(Estado::class, 'id', 'estado_id');
+    }
 
 }
