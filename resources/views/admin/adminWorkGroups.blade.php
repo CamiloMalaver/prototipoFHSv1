@@ -17,7 +17,7 @@
         </div>
         <!--Mensajes del server-->
         @if ($errors->any())
-        <div class="text-danger text-center fw-bolder w-50 mx-auto">
+        <div class="text-danger text-center fw-bolder w-50 mx-auto mt-2">
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 @foreach ($errors->all() as $error)
                 {{ $error }} <br>
@@ -43,9 +43,8 @@
                 <div class="row align-items-center justify-content-between m-3">
                     <div class="col-7">
                         <h4 class="card-title mb-0 justify-content-center">{{$espacio->nombre}}</h4>
-                        <p class="text mt-0">{{$espacio->users()->get()[0]->nombres . ' ' . $espacio->users()->get()[0]->apellidos}}</p>
                     </div>
-                    <div class="col-5 align-items-center"><a onclick="edit('{{$espacio}}', '{{$espacio->users()->get()}}')" class="btn btn-xs btn-primary">Gestionar</a></div>
+                    <div class="col-5 align-items-center"><a onclick="edit('{{$espacio}}')" class="btn btn-xs btn-primary">Gestionar</a></div>
                 </div>
             </div>
         </div>
@@ -107,28 +106,85 @@
 <div class="modal fade" id="modalgestionarGT" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
-            <div class="modal-header d-block align-content-center">
-                <h1 class="modal-title fs-3 m-0" id="titulomodalGGT"></h1>
-                <h1 class="modal-title fs-5 m-0 fw-light" id="tituloauditor"></h1>
+            <div class="modal-header justify-content-around">
+                <div class="row">
+                    <div class="col-sm-12 col-md-7">
+                        <h1 class="modal-title fs-3 m-0  d-block" id="titulomodalGGT"></h1>
+                        <h1 class="modal-title fs-5 m-0 fw-light d-block" id="tituloauditor"></h1>
+                    </div>
+                    <div class="col-sm-12 col-md-5 mt-3">
+                        <form method="post" action="{{route('adminAddDocGT')}}">
+                            @csrf
+                            <input type="hidden" id="hiddenadddoc" name="espacio_trabajo_id">
+                            <div class="input-group mb-1">
+                                <input type="email" class="form-control" name="email_docente" placeholder="Email docente" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit"><i class="bi bi-person-plus"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                        <p class="text-muted fw-light m-0" style="font-size: 0.9rem;">*Agregue docentes usando su respectivo email.</p>
+                    </div>
+                </div>
             </div>
             <div class="modal-body">
-                ...
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-sm-12">
+                        <h1 class="modal-title fs-5 mb-2" id="">Docentes en este espacio:</h1>
+                        <table class="table table-hover" id="tableGTT">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nombres</th>
+                                    <th scope="col">Teléfono</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableModalGGT">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function edit(espacio, usuarios) {
+    function edit(espacio) {
+        $("#tableModalGGT").empty();
         let data = JSON.parse(espacio);
-        let users = JSON.parse(usuarios);
-        console.log(users);
         $('#titulomodalGGT').text(data.nombre);
-        $('#tituloauditor').text('Auditor a cargo: ' + users[0].nombres + ' ' +  users[0].apellidos);
+        $('#hiddenadddoc').val(data.id);
+        $.ajax({
+            url: "{{route('adminDetalleGT')}}",
+            method: "GET",
+            data: {
+                espacio_trabajo_id: data.id,
+            },
+            success: function(data) {
+                for (var i = 0; i < Object.keys(data).length; i++) {
+                    if (data[i].rol_id == '2') {
+                        $('#tituloauditor').text('Auditor a cargo: ' + data[i].nombres + " " + data[i].apellidos);
+                    } else {
+                        let row = "<tr><td>" + data[i].nombres + " " + data[i].apellidos + "</td><td>" + data[i].celular + "</td></tr>";
+                        $('#tableModalGGT').append(row);
+                    }
+
+                }
+            }
+        });
+
+
+        // let users = JSON.parse(usuarios);
+
+        // 
+        // 
+
+
+
         $("#modalgestionarGT").modal('show');
     };
 </script>

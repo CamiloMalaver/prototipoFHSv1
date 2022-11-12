@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('documento')->length(50)->unique();
+            $table->bigInteger('documento')->length(50)->unique();
             $table->string('nombres', 50);
             $table->string('apellidos', 50);
             

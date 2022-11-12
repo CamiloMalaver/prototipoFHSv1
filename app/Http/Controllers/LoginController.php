@@ -25,7 +25,7 @@ class LoginController extends Controller
                     return view('auditor.auditorDash');
                     break;
                 case 3:
-                    return view('docente.docenteDash');
+                    return redirect('/docente');
                     break;
             }
         }

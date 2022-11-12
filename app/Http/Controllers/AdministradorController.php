@@ -10,6 +10,8 @@ use App\Models\PersonaEspacioTrabajo;
 use App\Models\Rol;
 use App\Models\Programa;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\MessageBag;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AdministradorController extends Controller
 {
@@ -98,4 +100,38 @@ class AdministradorController extends Controller
         return redirect()->back()->with('message', 'Se ha agregado el espacio de trabajo correctamente.');
 
     }
+    
+    public function agregarDocenteEspacioTrabajo(Request $request){
+        $validated = $request->validate([
+            'email_docente' => 'required|email|exists:users,email',
+            'espacio_trabajo_id' => 'required',
+        ]);
+        
+        $docente = User::where('email', $request->email_docente)->first();
+
+        if($docente->rol_id != '3'){
+            return back()->withErrors('El email proporcionado no corresponde a un docente');
+        }
+
+        if (PersonaEspacioTrabajo::where('usuario_id', '=', $docente->id)->exists()) {
+            return back()->withErrors('El email proporcionado ya se encuentra en un grupo de trabajo.');
+        }
+
+        $relacionar = new PersonaEspacioTrabajo();
+        $relacionar->usuario_id = $docente->id;
+        $relacionar->espacio_trabajo_id = $request->espacio_trabajo_id;
+        $relacionar->save();
+
+        return redirect()->back()->with('message', 'Se ha agregado el usuario al espacio de trabajo correctamente.');
+
+    }
+
+    public function detallesEspacioTrabajo(Request $request){
+        $result = DB::table('users')
+        ->join('persona_espacio_trabajo', 'users.id', '=', 'persona_espacio_trabajo.usuario_id')
+        ->where('persona_espacio_trabajo.espacio_trabajo_id', '=', $request->espacio_trabajo_id)
+        ->get();
+        return $result;
+    }
+
 }
