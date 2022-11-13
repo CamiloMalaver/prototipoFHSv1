@@ -23,17 +23,17 @@ class AdministradorController extends Controller
     }
 
     public function indexGruposTrabajo(){
-        $auditores = User::where('rol_id', 2)->get();
+        $auditores = DB::select(DB::raw('SELECT * FROM users u WHERE u.id NOT IN (SELECT usuario_id FROM persona_espacio_trabajo) AND u.rol_id = 2;'));
         $espacios_trabajo = EspacioTrabajo::all();
         return view('admin.adminWorkGroups')->with(compact('auditores', 'espacios_trabajo'));
     }
 
     public function nuevoUsuario(Request $request){
         $validated = $request->validate([
-            'documento' => 'required|integer|max:15|min:6|unique:users',
+            'documento' => 'required|integer|digits_between:5,15|unique:users',
             'nombres' => 'required|string|max:50|min:3',
             'apellidos' => 'required|string|max:50|min:3',
-            'celular' => 'required|integer|max:10|min:10',
+            'celular' => 'required|integer|digits_between:10,10',
             'select_rol' => 'required',
             'select_programa' => 'nullable',
             'email' => 'required|email|unique:users',
