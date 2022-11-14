@@ -82,7 +82,7 @@ class AdministradorController extends Controller
     public function nuevoGrupoTrabajo(Request $request){
 
         $validated = $request->validate([
-            'nombre_espacio_trabajo' => 'required|max:30|min:4',
+            'nombre_espacio_trabajo' => 'required|max:30|min:4|unique:espacio_trabajo,nombre',
             'auditor_id' => 'required',
         ]);
 

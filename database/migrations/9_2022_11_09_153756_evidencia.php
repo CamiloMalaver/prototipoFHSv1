@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('funcion_sustantiva_id');
             $table->foreign('funcion_sustantiva_id')->references('id')->on('funcion_sustantiva');
 
-            $table->string('img_url');
+            $table->string('url');
         });
     }
 

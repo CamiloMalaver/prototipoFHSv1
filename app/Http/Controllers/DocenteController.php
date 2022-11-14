@@ -62,7 +62,7 @@ class DocenteController extends Controller
         $reporte->descripcion_actividad = $request->descripcion_actividad;
         $reporte->observaciones = $request->observaciones;
         $reporte->tipo_funcion_id = $request->tipo_funcion;
-        $reporte->estado_id = 2;
+        $reporte->estado_id = 1;
         $reporte->save();
 
         return redirect()->back()->with('message', 'Se ha agregado el reporte correctamente.');

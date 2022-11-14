@@ -7,7 +7,9 @@
     <div class="row mt-5 mb-2 justify-content-around">
         <div class="col-md-5 col-sm-12 align-self-center justify-content-center">
             <h2 class="text-center">Registro general de funciones</h2>
+            @if ($EspacioTrabajo)
             <h5 class="text-center">Espacio de trabajo: {{Auth::user()->espaciotrabajo()->get()[0]->nombre}}</h5>
+            @endif
         </div>
         <div class="col-md-5 col-sm-12 align-self-center">
             <div class="input-group justify-content-center">
@@ -39,7 +41,7 @@
         <!--Mensajes del server-->
     </div>
     <hr>
-    @if (!$EspacioTrabajo == null)
+    @if ($EspacioTrabajo)
     <div class="row justify-content-center">
         <div class="col-md-10 col-sm-12">
             <table class="table table-hover">
@@ -53,7 +55,19 @@
                 </thead>
                 <tbody>
                     @foreach($rs as $reporte)
-                    <tr>
+                    <tr style="
+                        @switch($reporte->e_id)
+                            @case(2)
+                                background-color: rgba(154, 247, 153, 0.15);
+                                @break
+                            @case(1)
+                            background-color: rgba(246, 247, 153, 0.15);
+                                @break
+                            @case(3)
+                            background-color: rgba(247, 153, 153, 0.15);
+                                @break
+                        @endswitch
+                    ">
                         <td>{{ $reporte->doc_nombre . ' ' . $reporte->doc_apellido}}</td>
                         <td>{{ $reporte->tp_nombre}}</td>
                         <td>{{ $reporte->e_nombre}}</td>
@@ -70,7 +84,7 @@
         </div>
     </div>
     @else
-    <h5 class="text-center mt-5 fw-light">Aún no te han asignado un grupo de trabajo :(.</h5>
+    <h5 class="text-center mt-5 fw-light">Aún no te han asignado un grupo de trabajo :( </h5>
     @endif
 </div>
 
@@ -168,7 +182,7 @@
                     <div class="row d-flex justify-content-around">
                         <div class="col-sm-12 col-md-12">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" name="observaciones_audit" id="observacionesAudit" placeholder="Observaciones auditor" minlength="10" maxlength="500" style="height: 100px"></textarea>
+                                <textarea class="form-control" name="observaciones_audit" id="observacionesAudit" placeholder="Observaciones auditor" maxlength="500" style="height: 100px"></textarea>
                                 <label for="floatingTextarea2">Observaciones auditor</label>
                             </div>
                         </div>
@@ -190,7 +204,7 @@
 <script>
     function view(identificador) {
         $.ajax({
-            url: "{{route('docenteDetalleFS')}}",
+            url: "{{route('auditorDetalleFS')}}",
             method: "GET",
             data: {
                 id: identificador,
@@ -209,18 +223,18 @@
                 $('#involucrado3V').val(este.involucrado_3);
                 $('#descripcionActividadV').val(data.descripcion_actividad);
                 $('#observacionesV').val(data.observaciones);
-                if(data.estado_id != 1){
-                    $('#observacionesAudit').val(data.observaciones_auditor);   
+                if (data.estado_id != 1) {
+                    $('#observacionesAudit').val(data.observaciones_auditor);
                     $('#observacionesAudit').prop('disabled', true);
-                    $('#btnRechazo').css("display", "none");   
-                    $('#btnAprueba').css("display", "none");           
-                }else{
-                    $('#observacionesAudit').val(''); 
+                    $('#btnRechazo').css("display", "none");
+                    $('#btnAprueba').css("display", "none");
+                } else {
+                    $('#observacionesAudit').val('');
                     $('#observacionesAudit').prop('disabled', false);
-                    $('#btnRechazo').css("display", "inline-block");   
+                    $('#btnRechazo').css("display", "inline-block");
                     $('#btnAprueba').css("display", "inline-block");
-                }                
-                             
+                }
+
                 $("#modalGetDetails").modal('show');
             }
         });
@@ -236,9 +250,6 @@
         $.ajax({
             url: "{{route('auditorRevisa')}}",
             method: "POST",
-            headers: {
-                Authorization: $("#csrf").val()
-            },
             data: {
                 id_fs: $('#id_fs').val(),
                 estado: key,

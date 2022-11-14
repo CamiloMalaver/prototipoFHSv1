@@ -63,7 +63,19 @@
                 </thead>
                 <tbody>
                     @foreach($reportes as $reporte)
-                    <tr>
+                    <tr style="
+                        @switch($reporte->estado()->first()->id)
+                            @case(2)
+                                background-color: rgba(154, 247, 153, 0.15);
+                                @break
+                            @case(1)
+                            background-color: rgba(246, 247, 153, 0.15);
+                                @break
+                            @case(3)
+                            background-color: rgba(247, 153, 153, 0.15);
+                                @break
+                        @endswitch
+                    ">
                         <td>{{ $reporte->consecutivo}}</td>
                         <td>{{ $reporte->tipofuncion()->first()->nombre}}</td>
                         <td>{{ $reporte->estado()->first()->nombre}}</td>
@@ -86,7 +98,7 @@
         </div>
     </div>
     @else
-    <h5 class="text-center mt-5 fw-light">Aún no te han asignado un grupo de trabajo :(.</h5>
+    <h5 class="text-center mt-5 fw-light">Aún no te han asignado un grupo de trabajo :(</h5>
     @endif
 </div>
 
@@ -182,14 +194,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-success">Reportar</button>
                         </div>
                     </form>
-
-
                 </div>
             </div>
         </div>
@@ -209,13 +218,13 @@
                     <div class="row d-flex justify-content-around">
                         <div class="col-sm-12 col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="consecutivoV" placeholder="Consecutivo" minlength="3" maxlength="30" readonly>
+                                <input type="text" class="form-control" id="consecutivoV" placeholder="Consecutivo" minlength="3" maxlength="30" disabled>
                                 <label for="floatingInput">Consecutivo</label>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="form-floating mb-3" id="">
-                                <input type="text" class="form-control" id="tipoFuncionV" placeholder="Tipo función" minlength="3" maxlength="30" readonly>
+                                <input type="text" class="form-control" id="tipoFuncionV" placeholder="Tipo función" minlength="3" maxlength="30" disabled>
                                 <label for="floatingSelectGrid">Tipo de función</label>
                             </div>
                         </div>
@@ -223,19 +232,19 @@
                     <div class="row d-flex justify-content-around">
                         <div class="col-sm-12 col-md-4">
                             <div class="form-floating mb-3">
-                                <input type="time" class="form-control" id="horaInicioV" placeholder="Hora inicio" readonly>
+                                <input type="time" class="form-control" id="horaInicioV" placeholder="Hora inicio" disabled>
                                 <label for="floatingInput">Hora inicio</label>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-floating mb-3">
-                                <input type="time" class="form-control" id="horaFinalV" placeholder="Hora final" readonly>
+                                <input type="time" class="form-control" id="horaFinalV" placeholder="Hora final" disabled>
                                 <label for="floatingInput">Hora final</label>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-4">
                             <div class="form-floating mb-3">
-                                <input type="date" class="form-control" id="fechaReporteV" placeholder="Fecha reporte" readonly>
+                                <input type="date" class="form-control" id="fechaReporteV" placeholder="Fecha reporte" disabled>
                                 <label for="floatingPassword">Fecha reporte</label>
                             </div>
                         </div>
@@ -244,15 +253,15 @@
                         <div class="col-sm-12 col-md-12">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="involucrado1V" maxlength="50" minlength="5" placeholder="Involucrado 1" readonly>
+                                    <input type="text" class="form-control" id="involucrado1V" maxlength="50" minlength="5" placeholder="Involucrado 1" disabled>
                                     <label for="floatingInputI1">Involucrado 1</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="involucrado2V" maxlength="50" minlength="5" placeholder="Involucrado 2" readonly>
+                                    <input type="text" class="form-control" id="involucrado2V" maxlength="50" minlength="5" placeholder="Involucrado 2" disabled>
                                     <label for="floatingInputI1">Involucrado 2</label>
                                 </div>
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="involucrado3V" maxlength="50" minlength="5" placeholder="Involucrado 3" readonly>
+                                    <input type="text" class="form-control" id="involucrado3V" maxlength="50" minlength="5" placeholder="Involucrado 3" disabled>
                                     <label for="floatingInputI1">Involucrado 3</label>
                                 </div>
                             </div>
@@ -261,7 +270,7 @@
                     <div class="row d-flex justify-content-around">
                         <div class="col-sm-12 col-md-12">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="descripcionActividadV" placeholder="Descripción actividad" id="" style="height: 160px" maxlength="1000" minlength="10" readonly></textarea>
+                                <textarea class="form-control" id="descripcionActividadV" placeholder="Descripción actividad" id="" style="height: 160px" maxlength="1000" minlength="10" disabled></textarea>
                                 <label for="floatingTextarea2">Descripción actividad</label>
                             </div>
                         </div>
@@ -269,7 +278,7 @@
                     <div class="row d-flex justify-content-around">
                         <div class="col-sm-12 col-md-12">
                             <div class="form-floating mb-3">
-                                <textarea class="form-control" id="observacionesV" placeholder="Observaciones" minlength="10" maxlength="500" style="height: 100px" readonly></textarea>
+                                <textarea class="form-control" id="observacionesV" placeholder="Observaciones" minlength="10" maxlength="500" style="height: 100px" disabled></textarea>
                                 <label for="floatingTextarea2">Observaciones</label>
                             </div>
                         </div>
@@ -278,11 +287,18 @@
                         <div class="col-sm-12 col-md-12">
                             <div class="mb-3">
                                 <label for="formFileMultiple" name="anexos" class="form-label">Anexo de evidencias</label>
-                                <input class="form-control" type="file" id="formFile">
+                                <input class="form-control" type="file" id="formFile" disabled>
                             </div>
                         </div>
                     </div>
-
+                    <div class="row justify-content-around" id="auditorObservaciones">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" name="observaciones_audit" id="observacionesAudit" placeholder="Observaciones auditor" minlength="10" maxlength="500" style="height: 100px" disabled></textarea>
+                                <label for="floatingTextarea2">Observaciones auditor</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     </div>
@@ -306,12 +322,21 @@
                 $('#tipoFuncionV').val(data.tipofuncion.nombre);
                 $('#horaInicioV').val(data.hora_inicio);
                 $('#horaFinalV').val(data.hora_final);
-                $('#fechaReporteV').val(data.fecha);     
+                $('#fechaReporteV').val(data.fecha);
                 $('#involucrado1V').val(este.involucrado_1);
                 $('#involucrado2V').val(este.involucrado_2);
                 $('#involucrado3V').val(este.involucrado_3);
                 $('#descripcionActividadV').val(data.descripcion_actividad);
                 $('#observacionesV').val(data.observaciones);
+                if (data.estado_id != 1) {
+                    $('#observacionesAudit').val(data.observaciones_auditor);
+                    $('#auditorObservaciones').show();
+                    console.log('yes');
+                } else {
+                    $('#auditorObservaciones').hide();
+                    $('#observacionesAudit').val('');
+                    console.log('none');
+                }
                 $("#modalGetDetails").modal('show');
             }
         });

@@ -17,23 +17,23 @@
 
 <body>
 
-    <div class="offcanvas offcanvas-start bg-light" style="width: 20%;" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false" style="background-color: aqua !important;">
-        <div class="offcanvas-header">            
+    <div class="offcanvas offcanvas-start bg-light" style="width: 20%;" tabindex="-1" id="offcanvas" data-bs-keyboard="false" data-bs-backdrop="false">
+        <div class="offcanvas-header" style="background-color: #0d6efd;">            
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body px-0">
-            <h4 class="offcanvas-title d-none d-sm-block text-center">{{ auth()->user()->nombres . ' ' . auth()->user()->apellidos }}</h4>
-            <h6 class="offcanvas-title d-none d-sm-block text-center">{{auth()->user()->rol->nombre_rol}}</h6>
+        <div class="offcanvas-body px-0" style="background-color: #0d6efd;">
+            <h4 class="offcanvas-title d-none d-sm-block text-center text-light">{{ auth()->user()->nombres . ' ' . auth()->user()->apellidos }}</h4>
+            <h6 class="offcanvas-title d-none d-sm-block text-center text-light">{{auth()->user()->rol->nombre_rol}}</h6>
             <hr>
-            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center" id="menu">
+            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center text-light" id="menu">
                 <!--Admin Links-->
                 @if(auth()->user()->rol->nombre_rol == 'Administrador')
                 <li>
-                    <a href="{{route('adminDash')}}" class="nav-link text-truncate">
+                    <a href="{{route('adminDash')}}" class="nav-link text-truncate text-light">
                         <i class="fs-5 bi bi-people"></i><span class="ms-1 d-none d-sm-inline">Usuarios</span></a>
                 </li>
                 <li>
-                    <a href="{{route('adminGrupos')}}" class="nav-link text-truncate">
+                    <a href="{{route('adminGrupos')}}" class="nav-link text-truncate text-light">
                         <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Grupos de trabajo</span></a>
                 </li>
                 @endif
@@ -43,7 +43,7 @@
                 <li>
                     <form method="get" action="/salir" id="">
                         @csrf
-                        <button type="submit" class="nav-link text-truncate mt-5">
+                        <button type="submit" class="nav-link text-truncate mt-5 text-light">
                         <i class="fs-5 bi-box-arrow-left"></i><span class="ms-1 d-none d-sm-inline">Cerrar sesion</span></button>
                     </form>
                 </li>
