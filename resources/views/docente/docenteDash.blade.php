@@ -112,7 +112,7 @@
             </div>
             <div class="modal-body">
                 <div class="container fluid">
-                    <form class="m-0" method="POST" action="{{route('docenteNuevoReporte')}}" id="">
+                    <form class="m-0" method="POST" action="{{route('docenteNuevoReporte')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="row d-flex justify-content-around">
                             <div class="col-sm-12 col-md-6">
@@ -189,8 +189,8 @@
                         <div class="row d-flex justify-content-around">
                             <div class="col-sm-12 col-md-12">
                                 <div class="mb-3">
-                                    <label for="formFileMultiple" name="anexos" class="form-label">Anexo de evidencias</label>
-                                    <input class="form-control" type="file" id="formFile">
+                                    <label for="formFileMultiple" name="" class="form-label">Anexo de evidencias</label>
+                                    <input class="form-control" type="file" name="files[]" id="formFile" multiple="multiple">
                                 </div>
                             </div>
                         </div>
@@ -283,13 +283,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row d-flex justify-content-around">
-                        <div class="col-sm-12 col-md-12">
-                            <div class="mb-3">
-                                <label for="formFileMultiple" name="anexos" class="form-label">Anexo de evidencias</label>
-                                <input class="form-control" type="file" id="formFile" disabled>
-                            </div>
-                        </div>
+                    <div class="row d-flex justify-content-center" id="docsshow">
                     </div>
                     <div class="row justify-content-around" id="auditorObservaciones">
                         <div class="col-sm-12 col-md-12">
@@ -331,12 +325,16 @@
                 if (data.estado_id != 1) {
                     $('#observacionesAudit').val(data.observaciones_auditor);
                     $('#auditorObservaciones').show();
-                    console.log('yes');
                 } else {
                     $('#auditorObservaciones').hide();
                     $('#observacionesAudit').val('');
-                    console.log('none');
                 }
+                $('#docsshow').html('');
+                $('#docsshow').append("<label for='floatingInput'>Evidencias</label>"); 
+                data.evidencia.forEach(function(doc) {
+                    let item = "<div class='col-sm-2 col-md-2 mb-3'><a class='text-center' href='" + doc.url +"' data-toggle='tooltip' data-placement='top' title='descargar archivo adjunto.'><i class='bi bi-file-earmark-arrow-down fs-1'></i>" + doc.nombre_archivo +"</a></div>";
+                    $('#docsshow').append(item);                    
+                });
                 $("#modalGetDetails").modal('show');
             }
         });

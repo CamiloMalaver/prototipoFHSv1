@@ -42,7 +42,6 @@
                     <tr>
                         <th scope="col">Nombres</th>
                         <th scope="col">Rol</th>
-                        <th scope="col">Estado</th>
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
@@ -52,7 +51,6 @@
                         <input type="hidden" name="user_id" value="{{$user->id}}">
                         <td>{{ $user->nombres . ' ' . $user->apellidos }}</td>
                         <td>{{ $user->rol->nombre_rol}}</td>
-                        <td>{{ $user->estado->valor}}</td>
                         <td><button class="btn m-0" onclick="edit('{{$user->id}}')" data-toggle="tooltip" data-placement="top" title="Editar usuario."><img src="https://cdn-icons-png.flaticon.com/512/143/143437.png" style="width: 25px;" alt=""></button></td>
                     </tr>
                     @endforeach

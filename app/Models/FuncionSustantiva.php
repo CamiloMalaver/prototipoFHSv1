@@ -20,6 +20,11 @@ class FuncionSustantiva extends Model
         return $this->hasOne(Estado::class, 'id', 'estado_id');
     }
 
+    public function evidencia()
+    {
+        return $this->hasMany(Evidencia::class, 'funcion_sustantiva_id', 'id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

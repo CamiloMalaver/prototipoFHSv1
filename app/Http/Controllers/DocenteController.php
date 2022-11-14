@@ -4,17 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\User;
-use App\Models\EspacioTrabajo;
 use App\Models\FuncionSustantiva;
 use App\Models\PersonaEspacioTrabajo;
 use App\Models\Rol;
-use App\Models\Programa;
+use App\Models\Evidencia;
 use App\Models\TipoFuncion;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\MessageBag;
-use Laravel\Sanctum\PersonalAccessToken;
 
 class DocenteController extends Controller
 {
@@ -40,10 +34,10 @@ class DocenteController extends Controller
             'involucrado_3' => 'nullable|min:5|max:100',
             'descripcion_actividad' => 'required|string|min:10|max:1000',
             'observaciones' => 'required|min:8|max:500',
+            'files' => 'nullable|max:30000',
         ], [
             'fecha_reporte.before' => 'Campo fecha superior a el dia de hoy.',
         ]);
-
         $reporte = new FuncionSustantiva();
 
         $reporte->usuario_id = Auth::user()->id;
@@ -63,14 +57,31 @@ class DocenteController extends Controller
         $reporte->observaciones = $request->observaciones;
         $reporte->tipo_funcion_id = $request->tipo_funcion;
         $reporte->estado_id = 1;
+
         $reporte->save();
+        
+        if($request->hasfile('files'))
+        {
+           foreach($request->file('files') as $key => $file)
+           {
+               $path = $file->store('public/img');
+               $path = str_replace('public/', '/storage/', $path);
+               $name = time(). '_'. $file->getClientOriginalName();
+
+               $fileModel = new Evidencia();
+               $fileModel->funcion_sustantiva_id = $reporte->id;
+               $fileModel->nombre_archivo = $name;
+               $fileModel->url = $path;
+               $fileModel->save();          
+           }
+        }
 
         return redirect()->back()->with('message', 'Se ha agregado el reporte correctamente.');
 
     }
 
     public function detallesFuncionSustantiva(Request $request){
-        $result = FuncionSustantiva::where('id', $request->id)->with('tipofuncion')->first();
+        $result = FuncionSustantiva::where('id', $request->id)->with('tipofuncion','evidencia')->first();
         return $result;
     }
 

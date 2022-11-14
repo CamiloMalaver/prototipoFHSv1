@@ -167,13 +167,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row d-flex justify-content-around">
-                        <div class="col-sm-12 col-md-12">
-                            <div class="mb-3">
-                                <label for="formFileMultiple" name="anexos" class="form-label">Anexo de evidencias</label>
-                                <input class="form-control" type="file" id="formFile" disabled>
-                            </div>
-                        </div>
+                    <div class="row d-flex justify-content-center" id="docsshow">
                     </div>
                 </div>
             </div>
@@ -211,7 +205,6 @@
             },
             success: function(data) {
                 let este = JSON.parse(data.involucrados);
-                console.log(data);
                 $('#id_fs').val(identificador);
                 $('#consecutivoV').val(data.consecutivo);
                 $('#tipoFuncionV').val(data.tipofuncion.nombre);
@@ -234,7 +227,12 @@
                     $('#btnRechazo').css("display", "inline-block");
                     $('#btnAprueba').css("display", "inline-block");
                 }
-
+                $('#docsshow').html('');
+                $('#docsshow').append("<label for='floatingInput'>Evidencias</label>");
+                data.evidencia.forEach(function(doc) {
+                    let item = "<div class='col-sm-2 col-md-2 mb-3'><a class='text-center' href='" + doc.url + "' data-toggle='tooltip' data-placement='top' title='descargar archivo adjunto.'><i class='bi bi-file-earmark-arrow-down fs-1'></i>" + doc.nombre_archivo + "</a></div>";
+                    $('#docsshow').append(item);
+                });
                 $("#modalGetDetails").modal('show');
             }
         });

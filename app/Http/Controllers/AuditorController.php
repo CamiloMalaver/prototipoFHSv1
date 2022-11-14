@@ -60,7 +60,7 @@ class AuditorController extends Controller
     }
 
     public function detallesFuncionSustantiva(Request $request){
-        $result = FuncionSustantiva::where('id', $request->id)->with('tipofuncion')->first();
+        $result = FuncionSustantiva::where('id', $request->id)->with('tipofuncion', 'evidencia')->first();
         return $result;
     }
 

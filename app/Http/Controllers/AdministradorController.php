@@ -46,7 +46,6 @@ class AdministradorController extends Controller
         $usuario->rol_id = $request->select_rol;
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password);
-        $usuario->estado_id = 1;
         if($request->select_programa == 3){
             $usuario->programa_id = $request->select_programa;
         }

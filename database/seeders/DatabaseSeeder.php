@@ -67,7 +67,6 @@ class DatabaseSeeder extends Seeder
             'rol_id' => 1,
             'email' => 'admin@admin.io',
             'password' => Hash::make('admin'),
-            'estado_id' => 1,
         ]);
 
         DB::table('users')->insert([
@@ -78,7 +77,6 @@ class DatabaseSeeder extends Seeder
             'rol_id' => 2,
             'email' => 'adaza@hfs.io',
             'password' => Hash::make('secret'),
-            'estado_id' => 1,
         ]);
 
         DB::table('users')->insert([
@@ -89,7 +87,6 @@ class DatabaseSeeder extends Seeder
             'rol_id' => 2,
             'email' => 'dsanchez@hfs.io',
             'password' => Hash::make('secret'),
-            'estado_id' => 1,
         ]);
 
         DB::table('users')->insert([
@@ -100,7 +97,6 @@ class DatabaseSeeder extends Seeder
             'rol_id' => 2,
             'email' => 'hperez@hfs.io',
             'password' => Hash::make('secret'),
-            'estado_id' => 1,
         ]);
 
         DB::table('users')->insert([
@@ -112,7 +108,6 @@ class DatabaseSeeder extends Seeder
             'programa_id' => 1,
             'email' => 'sdiazn@hfs.io',
             'password' => Hash::make('secret'),
-            'estado_id' => 1,
         ]);
 
         DB::table('users')->insert([
@@ -124,7 +119,6 @@ class DatabaseSeeder extends Seeder
             'programa_id' => 1,
             'email' => 'alobo@hfs.io',
             'password' => Hash::make('secret'),
-            'estado_id' => 1,
         ]);
 
         DB::table('users')->insert([
@@ -136,7 +130,6 @@ class DatabaseSeeder extends Seeder
             'programa_id' => 1,
             'email' => 'cdiaz@hfs.io',
             'password' => Hash::make('secret'),
-            'estado_id' => 1,
         ]);
 
         DB::table('users')->insert([
@@ -148,7 +141,6 @@ class DatabaseSeeder extends Seeder
             'programa_id' => 1,
             'email' => 'lboris@hfs.io',
             'password' => Hash::make('secret'),
-            'estado_id' => 1,
         ]);    
 
     }

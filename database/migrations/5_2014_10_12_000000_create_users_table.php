@@ -26,9 +26,6 @@ return new class extends Migration
             $table->unsignedBigInteger('rol_id');
             $table->foreign('rol_id')->references('id')->on('rol');
 
-            $table->unsignedBigInteger('estado_id');
-            $table->foreign('estado_id')->references('id')->on('estado');
-
             $table->unsignedBigInteger('programa_id')->nullable();
             $table->foreign('programa_id')->references('id')->on('programa');
 
