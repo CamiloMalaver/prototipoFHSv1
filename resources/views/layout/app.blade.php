@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @yield('header')
 
     <title>Laravel</title>
     <!-- CSS only -->
@@ -40,7 +41,7 @@
                 @if(auth()->user()->rol->nombre_rol == 'Docente')
                 @endif
                 <li>
-                    <form method="POST" action="/salir" id="formNuevoUsuario">
+                    <form method="get" action="/salir" id="">
                         @csrf
                         <button type="submit" class="nav-link text-truncate mt-5">
                         <i class="fs-5 bi-box-arrow-left"></i><span class="ms-1 d-none d-sm-inline">Cerrar sesion</span></button>

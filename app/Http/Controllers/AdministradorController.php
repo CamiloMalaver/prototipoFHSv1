@@ -10,8 +10,6 @@ use App\Models\PersonaEspacioTrabajo;
 use App\Models\Rol;
 use App\Models\Programa;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\MessageBag;
-use Laravel\Sanctum\PersonalAccessToken;
 
 class AdministradorController extends Controller
 {

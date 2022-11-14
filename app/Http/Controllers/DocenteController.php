@@ -20,7 +20,9 @@ class DocenteController extends Controller
 {
     public function Index(){
         $tieneEspacioTrabajo = PersonaEspacioTrabajo::where('usuario_id', Auth::user()->id)->first();
+        
         $tiposfuncion = TipoFuncion::All();
+        
         $reportes = FuncionSustantiva::where('usuario_id', Auth::user()->id)->with('estado')->get();
         return view('docente.docenteDash')->with(compact('tieneEspacioTrabajo', 'tiposfuncion', 'reportes'));
     }

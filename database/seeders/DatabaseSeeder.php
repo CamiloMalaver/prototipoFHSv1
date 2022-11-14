@@ -31,11 +31,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('estado')->insert([
-            'nombre' => 'Aprobado',
+            'nombre' => 'Pendiente',
         ]);
 
         DB::table('estado')->insert([
-            'nombre' => 'En revision',
+            'nombre' => 'Aprobado',
         ]);
 
         DB::table('estado')->insert([

@@ -22,7 +22,7 @@ class LoginController extends Controller
                     return redirect('/administrador');
                     break;
                 case 2:
-                    return view('auditor.auditorDash');
+                    return redirect('/auditor');
                     break;
                 case 3:
                     return redirect('/docente');
@@ -36,7 +36,9 @@ class LoginController extends Controller
     }
 
     public function finalizarSesion(){
-        Auth::logout();
+        if(Auth::check()){
+            Auth::logout();
+        }        
         return redirect('/');
     }
     
