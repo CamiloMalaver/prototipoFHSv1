@@ -5,20 +5,6 @@
         <div class="col-md-5 col-sm-12 align-self-center">
             <h2 class="text-center">Registro de funciones</h2>
         </div>
-        <div class="row justify-content-evenly mt-2 mb-2">
-            <div class="col-auto">
-                <h4 class="text fs-6 fw-bolder d-inline">N° Horas aprobadas:</h4>
-                <h6 class="text fs-6 fw-normal d-inline">123</h6>
-            </div>
-            <div class="col-auto">
-                <h4 class="text fs-6 fw-bolder d-inline">N° Horas en revisión:</h4>
-                <h6 class="text fs-6 fw-normal d-inline">123</h6>
-            </div>
-            <div class="col-auto d-inline">
-                <h4 class="text fs-6 fw-bolder d-inline">N° Horas rechazadas:</h4>
-                <h6 class="text fs-6 fw-normal d-inline">123</h6>
-            </div>
-        </div>
         <!--Mensajes del server-->
         @if ($errors->any())
         <div class="text-danger text-center fw-bolder w-50 mx-auto">

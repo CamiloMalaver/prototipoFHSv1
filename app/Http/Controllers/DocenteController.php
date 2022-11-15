@@ -65,7 +65,7 @@ class DocenteController extends Controller
            foreach($request->file('files') as $key => $file)
            {
                $path = $file->store('public/img');
-               $path = str_replace('public/', '/storage/', $path);
+               $path = $file->);
                $name = time(). '_'. $file->getClientOriginalName();
 
                $fileModel = new Evidencia();
