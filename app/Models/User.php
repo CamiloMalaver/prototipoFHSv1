@@ -53,6 +53,11 @@ class User extends Authenticatable
         return $this->hasOne(Rol::class, 'id', 'rol_id');
     }
 
+    public function programa()
+    {
+        return $this->hasOne(Programa::class, 'id', 'programa_id');
+    }
+
     public function espaciotrabajo()
     {
         return $this->belongsToMany(EspacioTrabajo::class, 'persona_espacio_trabajo', 'id', 'espacio_trabajo_id');

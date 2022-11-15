@@ -85,5 +85,14 @@ class DocenteController extends Controller
         return $result;
     }
 
+    public function imprimirReporte(Request $request){
+        $request->validate([
+            'fs_id' => 'required',
+        ]);
+        
+        $result = FuncionSustantiva::where('id', $request->id)->with('tipofuncion','evidencia')->first();
+        return $result;
+    }
+
 
 }

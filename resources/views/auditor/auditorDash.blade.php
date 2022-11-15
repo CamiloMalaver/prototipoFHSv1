@@ -11,16 +11,6 @@
             <h5 class="text-center">Espacio de trabajo: {{Auth::user()->espaciotrabajo()->get()[0]->nombre}}</h5>
             @endif
         </div>
-        <div class="col-md-5 col-sm-12 align-self-center">
-            <div class="input-group justify-content-center">
-                <div class="form">
-                    <input type="search" id="form1" class="form-control" placeholder="Buscar" />
-                </div>
-                <button type="button" class="btn btn-primary">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
-        </div>
         <!--Mensajes del server-->
         @if ($errors->any())
         <div class="text-danger text-center fw-bolder w-50 mx-auto">
@@ -188,6 +178,16 @@
                         <div class="col-sm-6 col-md-6 align-self-center">
                             <button type="button" id="btnAprueba" class="btn btn-lg btn-outline-success" onclick="save(1)">Aprobar</button>
                         </div>
+                        <div class="col-sm-12 col-md-12 align-self-center" id="printDiv">
+                            <form action="{{route('auditorPrint')}}" method="get" target="_blank">
+                                <input type="hidden" name="fs_id" id="hiddenprint">
+                                <button type="submit" class="btn btn-md btn-primary">
+                                    <i class="bi bi-printer"></i>
+                                    Imprimir reporte
+                                </button>
+                            </form>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -221,11 +221,14 @@
                     $('#observacionesAudit').prop('disabled', true);
                     $('#btnRechazo').css("display", "none");
                     $('#btnAprueba').css("display", "none");
+                    $('#printDiv').css("display", "inline-block");
+                    $('#hiddenprint').val(identificador);
                 } else {
                     $('#observacionesAudit').val('');
                     $('#observacionesAudit').prop('disabled', false);
                     $('#btnRechazo').css("display", "inline-block");
                     $('#btnAprueba').css("display", "inline-block");
+                    $('#printDiv').css("display", "none");
                 }
                 $('#docsshow').html('');
                 $('#docsshow').append("<label for='floatingInput'>Evidencias</label>");

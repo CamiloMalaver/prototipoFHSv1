@@ -31,7 +31,6 @@
                         <button class="btn btn-success" type="submit">Acceder</button>
                     </div>
                 </form>
-                <a href="#" class="btn- btn-info">¿Olvidó su contraseña?</a>
             </div>
             @if ($errors->any())
                 <div class="text-danger text-center fw-bolder w-50 mx-auto">

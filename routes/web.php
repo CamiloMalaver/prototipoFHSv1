@@ -25,10 +25,12 @@ Route::group(['middleware' => 'audit',], function () {
     Route::get('auditor', [AuditorController::class, 'index'])->name('auditorDash');
     Route::post('auditor/revisar', [AuditorController::class, 'revisar'])->name('auditorRevisa');
     Route::get('auditor/detallefs', [AuditorController::class, 'detallesFuncionSustantiva'])->name('auditorDetalleFS');
+    Route::get('auditor/imprimirRep', [AuditorController::class, 'imprimirReporte'])->name('auditorPrint');
 });
 
 Route::group(['middleware' => 'doc',], function () {
     Route::get('docente', [DocenteController::class, 'index'])->name('docenteDash');
     Route::post('docente/nuevoreporte', [DocenteController::class, 'nuevoReporte'])->name('docenteNuevoReporte');
     Route::get('docente/detallefs', [DocenteController::class, 'detallesFuncionSustantiva'])->name('docenteDetalleFS');
+    Route::get('docente/imprimirRep', [DocenteController::class, 'imprimirReporte'])->name('docentePrint');
 });

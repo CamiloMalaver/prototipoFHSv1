@@ -5,16 +5,6 @@
         <div class="col-md-5 col-sm-12 align-self-center">
             <h2 class="text-center">Registro de funciones</h2>
         </div>
-        <div class="col-md-5 col-sm-12 align-self-center">
-            <div class="input-group justify-content-center">
-                <div class="form">
-                    <input type="search" id="form1" class="form-control" placeholder="Buscar" />
-                </div>
-                <button type="button" class="btn btn-primary">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
-        </div>
         <div class="row justify-content-evenly mt-2 mb-2">
             <div class="col-auto">
                 <h4 class="text fs-6 fw-bolder d-inline">N° Horas aprobadas:</h4>

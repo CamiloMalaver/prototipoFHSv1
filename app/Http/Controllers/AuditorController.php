@@ -8,10 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\FuncionSustantiva;
 use App\Models\PersonaEspacioTrabajo;
 use Illuminate\Support\Facades\DB;
-use App\Models\TipoFuncion;
 use App\Models\User;
-
-use function PHPUnit\Framework\isNull;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AuditorController extends Controller
 {
@@ -64,4 +62,14 @@ class AuditorController extends Controller
         return $result;
     }
 
+    public function imprimirReporte(Request $request){
+        $request->validate([
+            'fs_id' => 'required',
+        ]);
+        
+        $result = FuncionSustantiva::where('id', $request->fs_id)->with('tipofuncion','evidencia','user')->first();
+        // dd($result->ToArray());
+        $pdf =  PDF::loadView('printing.imprimirRep', $result->ToArray());
+        return $pdf->download('reporte.pdf');
+    }
 }
